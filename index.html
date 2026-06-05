@@ -2,8 +2,9 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPS जूनियर - मेगा इंग्लिश लर्निंग</title>
+    <!-- मोबाइल स्क्रीन पर सही फिट होने के लिए मेटा टैग -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SIPS जूनियर - स्मार्ट इंग्लिश लर्निंग वेब ऐप</title>
     <style>
         :root {
             --sips-green: #58cc02;
@@ -24,12 +25,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* मोबाइल पर अनावश्यक स्क्रॉल रोकने के लिए */
+            -webkit-tap-highlight-color: transparent;
         }
 
+        /* मोबाइल हेडर */
         .header {
             width: 100%;
-            max-width: 600px;
-            padding: 20px 15px;
+            max-width: 500px;
+            padding: 15px 20px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
@@ -43,13 +47,14 @@
             cursor: pointer;
             border: none;
             background: none;
+            padding: 5px;
         }
 
         .progress-container {
             flex-grow: 1;
-            height: 16px;
+            height: 14px;
             background-color: #e5e5e5;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
@@ -57,7 +62,7 @@
             height: 100%;
             width: 0%;
             background-color: var(--sips-green);
-            border-radius: 8px;
+            border-radius: 10px;
             transition: width 0.3s ease;
         }
 
@@ -70,44 +75,49 @@
             color: var(--sips-red);
         }
 
+        /* मोबाइल कार्ड कंटेनर */
         .main-card {
-            width: 90%;
-            max-width: 550px;
-            margin-top: 10px;
-            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 20px 120px 20px; /* नीचे स्पेस ताकि फूटर के पीछे कंटेंट न दबे */
             box-sizing: border-box;
         }
 
         .screen { display: none; text-align: center; }
-        .active-screen { display: block; }
+        .active-screen { display: block; animation: fadeIn 0.3s ease-in-out; }
 
-        /* स्कूल लोगो का स्टाइल */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* मोबाइल रिस्पॉन्सिव स्कूल लोगो */
         .school-logo-img {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-            margin-bottom: 15px;
-            border-radius: 50%; /* अगर लोगो गोल दिखाना हो */
+            margin: 15px 0;
         }
 
         .sips-logo-area {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: var(--sips-purple);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-bottom: 5px;
         }
         
-        h1 { font-size: 32px; color: var(--sips-blue); margin-top: 0; margin-bottom: 10px; }
-        h2 { color: #37474f; font-size: 22px; margin-top: 0; border-bottom: 2px solid #b0bec5; padding-bottom: 10px; text-align: left;}
-        .headline { font-size: 22px; font-weight: bold; margin-bottom: 25px; text-align: left; }
+        h1 { font-size: 26px; color: var(--sips-blue); margin-top: 0; margin-bottom: 5px; }
+        h2 { color: #37474f; font-size: 20px; margin-top: 0; border-bottom: 2px solid #b0bec5; padding-bottom: 10px; text-align: left;}
+        .headline { font-size: 20px; font-weight: bold; margin-bottom: 20px; text-align: left; line-height: 1.4; }
 
+        /* मोबाइल बटन डिज़ाइन - आसानी से उंगली से टच करने योग्य */
         .d-btn {
             background-color: var(--sips-green);
             color: white;
             border: none;
             border-bottom: 4px solid var(--sips-green-border);
-            padding: 15px 30px;
+            padding: 14px 24px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 16px;
@@ -115,83 +125,84 @@
             width: 100%;
             margin-top: 15px;
             box-sizing: border-box;
-            transition: all 0.1s;
+            transition: transform 0.05s;
         }
         .d-btn:active {
-            border-bottom-width: 0px;
-            margin-top: 19px;
-            margin-bottom: -4px;
+            transform: scale(0.98);
         }
 
         .input-field {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border: 2px solid #e5e5e5;
             border-radius: 16px;
-            font-size: 18px;
+            font-size: 16px;
             box-sizing: border-box;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background-color: #f7f7f7;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: var(--sips-blue);
         }
 
+        /* मोबाइल लेवल्स ग्रिड */
         .level-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
         .level-card {
             border: 2px solid #e5e5e5;
             border-bottom: 4px solid #e5e5e5;
             border-radius: 16px;
-            padding: 20px;
-            font-size: 18px;
+            padding: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: background 0.2s;
+            gap: 12px;
+            text-align: left;
         }
-        .level-card:hover { background-color: #f7f7f7; }
 
+        /* मोबाइल पर बड़ा इमोजी बॉक्स */
         .question-visual {
-            font-size: 75px;
-            margin: 15px 0;
+            font-size: 80px;
+            margin: 10px 0;
             cursor: pointer;
             display: inline-block;
-            animation: float 2.5s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            user-select: none;
         }
 
+        /* मोबाइल ऑप्शंस ग्रिड (टच-फ्रेंडली 2 कॉलम) */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .option-card {
             border: 2px solid #e5e5e5;
             border-bottom: 4px solid #e5e5e5;
             border-radius: 16px;
-            padding: 20px;
-            font-size: 18px;
+            padding: 18px 10px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             background: white;
-            transition: all 0.1s;
+            box-sizing: border-box;
+            user-select: none;
         }
-        .option-card:hover { background-color: #f7f7f7; border-color: #cccccc; }
         .option-card.selected {
             background-color: #ddf4ff;
             border-color: #84d8ff;
             border-bottom-color: #84d8ff;
         }
 
+        /* मोबाइल फिक्स्ड फूटर बार (डुआलिंगो जैसा) */
         .check-footer {
             position: fixed;
             bottom: 0;
@@ -199,7 +210,7 @@
             width: 100%;
             background-color: #ffffff;
             border-top: 2px solid #e5e5e5;
-            padding: 20px;
+            padding: 15px 20px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -207,49 +218,35 @@
         }
         .footer-content {
             width: 100%;
-            max-width: 550px;
+            max-width: 500px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
-        .check-footer.correct-bg {
-            background-color: #d7ffb8;
-            border-top-color: #b8f28b;
-            color: #257c00;
-        }
-        .check-footer.wrong-bg {
-            background-color: #ffdfe0;
-            border-top-color: #ffb8b8;
-            color: #ea2b2b;
-        }
+        .check-footer.correct-bg { background-color: #d7ffb8; border-top-color: #b8f28b; color: #257c00; }
+        .check-footer.wrong-bg { background-color: #ffdfe0; border-top-color: #ffb8b8; color: #ea2b2b; }
 
-        .feedback-text {
-            font-size: 20px;
-            font-weight: bold;
-            display: none;
-            text-align: left;
-        }
+        .feedback-text { font-size: 18px; font-weight: bold; display: none; text-align: left; flex-grow: 1; }
 
-        .teacher-panel { background-color: #eceff1; border: 2px solid #607d8b; border-radius: 20px; padding: 25px; text-align: left; display: none; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #455a64; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 12px; border: 1px solid #cfd8dc; border-radius: 8px; box-sizing: border-box; font-size: 16px;
-        }
+        /* टीचर पैनल */
+        .teacher-panel { background-color: #eceff1; border: 2px solid #607d8b; border-radius: 20px; padding: 20px; text-align: left; display: none; }
+        
         .admin-btn {
-            background-color: #ff9600; color: white; border: none; padding: 10px 20px;
-            font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 15px;
+            background-color: #ff9600; color: white; border: none; padding: 10px 15px;
+            font-size: 13px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px;
         }
 
-        .leaderboard-list { text-align: left; margin: 20px 0; padding: 0; list-style: none; }
-        .leaderboard-item { display: flex; justify-content: space-between; padding: 12px 20px; border: 2px solid #e5e5e5; border-radius: 12px; margin-bottom: 10px; font-weight: bold; }
+        /* लीडरबोर्ड */
+        .leaderboard-list { text-align: left; margin: 15px 0; padding: 0; list-style: none; }
+        .leaderboard-item { display: flex; justify-content: space-between; padding: 10px 15px; border: 2px solid #e5e5e5; border-radius: 12px; margin-bottom: 8px; font-size: 15px; font-weight: bold; }
         .rank-1 { background-color: #fff4d4; border-color: #ffdb7d; }
     </style>
 </head>
 <body>
 
-    <!-- टॉप प्रोग्रेस बार -->
+    <!-- प्रोग्रेस बार -->
     <div class="header" id="game-header" style="visibility: hidden;">
         <button class="close-btn" onclick="quitGame()">✕</button>
         <div class="progress-container">
@@ -260,51 +257,48 @@
 
     <div class="main-card">
         
-        <!-- स्क्रीन 1: SIPS लॉगिन स्क्रीन -->
+        <!-- स्क्रीन 1: मोबाइल लॉगिन -->
         <div class="screen active-screen" id="login-screen">
-            <!-- यहाँ स्कूल का असली लोगो आएगा (logo.png की जगह अपनी इमेज का नाम लिखें) -->
-            <img src="school_logo.png" alt="SIPS School Logo" class="school-logo-img" onerror="this.src='https://placehold.co/120x120?text=SIPS+LOGO'">
-            
+            <img src="logo.png" alt="SIPS Logo" class="school-logo-img" onerror="this.src='https://placehold.co/100x100?text=SIPS+LOGO'">
             <div class="sips-logo-area">✨ SIPS एलीमेंट्री ✨</div>
             <h1>SIPS जूनियर स्मार्ट ऐप</h1>
-            <p style="color: #666; font-size: 18px; margin-bottom: 30px;">मजेदार गेम्स से आसानी से अंग्रेजी बोलना सीखें!</p>
-            <input type="text" id="student-name" class="input-field" placeholder="अपना प्यारा नाम यहाँ लिखें...">
+            <p style="color: #666; font-size: 16px; margin-bottom: 25px;">मजेदार गेम्स से आसानी से अंग्रेजी बोलना सीखें!</p>
+            <input type="text" id="student-name" class="input-field" placeholder="अपना प्यारा नाम यहाँ लिखें..." autocomplete="off">
             <button class="d-btn" onclick="loginStudent()" style="background-color: var(--sips-blue); border-bottom-color: #128ec7;">शुरू करें 🚀</button>
             <button class="admin-btn" onclick="openTeacherPanel('login')">⚙️ SIPS टीचर पैनल</button>
         </div>
 
-        <!-- स्क्रीन 2: SIPS लेवल्स स्क्रीन -->
+        <!-- स्क्रीन 2: मोबाइल लेवल्स मेनु -->
         <div class="screen" id="level-screen">
             <div class="headline" id="welcome-text">नमस्ते, खिलाड़ी! 👋</div>
-            <p style="text-align: left; color:#666; font-weight: 500;">आज आप क्या सीखना चाहते हैं?</p>
+            <p style="text-align: left; color:#666; font-weight: 500; margin-top: -10px;">आज आप क्या सीखना चाहते हैं?</p>
             
             <div class="level-grid">
                 <div class="level-card" onclick="startLesson(1)" style="border-left: 6px solid var(--sips-blue);">
-                    <span style="font-size: 32px;">🔤</span>
+                    <span style="font-size: 28px;">🔤</span>
                     <div>
-                        <div style="font-size: 18px;">पाठ 1: अक्षरों की पहचान</div>
-                        <div style="font-size: 14px; color:#999; font-weight: normal;">Letters & Sounds</div>
+                        <div style="font-size: 16px;">पाठ 1: अक्षरों की पहचान</div>
+                        <div style="font-size: 13px; color:#999; font-weight: normal;">Letters & Sounds</div>
                     </div>
                 </div>
                 <div class="level-card" onclick="startLesson(2)" style="border-left: 6px solid var(--sips-orange);">
-                    <span style="font-size: 32px;">🍎</span>
+                    <span style="font-size: 28px;">🍎</span>
                     <div>
-                        <div style="font-size: 18px;">पाठ 2: फलों और जानवरों के नाम</div>
-                        <div style="font-size: 14px; color:#999; font-weight: normal;">Vocabulary Builder</div>
+                        <div style="font-size: 16px;">पाठ 2: फलों और जानवरों के नाम</div>
+                        <div style="font-size: 13px; color:#999; font-weight: normal;">Vocabulary Builder</div>
                     </div>
                 </div>
                 <div class="level-card" onclick="startLesson(3)" style="border-left: 6px solid var(--sips-green);">
-                    <span style="font-size: 32px;">💬</span>
+                    <span style="font-size: 28px;">💬</span>
                     <div>
-                        <div style="font-size: 18px;">पाठ 3: आसान बातचीत और ग्रीटिंग्स</div>
-                        <div style="font-size: 14px; color:#999; font-weight: normal;">Simple Greetings</div>
+                        <div style="font-size: 16px;">पाठ 3: आसान बातचीत और ग्रीटिंग्स</div>
+                        <div style="font-size: 13px; color:#999; font-weight: normal;">Simple Greetings</div>
                     </div>
                 </div>
             </div>
 
-            <!-- लीडरबोर्ड -->
-            <div style="margin-top: 30px; border-top: 2px solid #e5e5e5; padding-top: 20px;">
-                <div style="text-align: left; font-weight: bold; font-size: 19px; color: var(--sips-purple); margin-bottom: 10px;">🏆 SIPS स्टार्स लीडरबोर्ड</div>
+            <div style="margin-top: 25px; border-top: 2px solid #e5e5e5; padding-top: 15px;">
+                <div style="text-align: left; font-weight: bold; font-size: 17px; color: var(--sips-purple); margin-bottom: 8px;">🏆 SIPS स्टार्स लीडरबोर्ड</div>
                 <ul class="leaderboard-list" id="leaderboard-list"></ul>
             </div>
             
@@ -312,19 +306,19 @@
             <button class="admin-btn" onclick="logoutStudent()" style="background-color: var(--sips-red); margin-left: 10px;">← लॉगआउट</button>
         </div>
 
-        <!-- SCREEN 3, 4, 5 का कोड पुराना ही रहेगा... -->
+        <!-- स्क्रीन 3: मुख्य गेम स्क्रीन -->
         <div class="screen" id="quiz-screen">
             <div class="headline" id="question-title">पहचानो इसे क्या कहते हैं?</div>
             <div class="question-visual" id="question-visual" onclick="repeatAudio()">🍎</div>
-            <div style="font-size: 15px; color: #ff9600; font-weight: bold; margin-top: -5px; margin-bottom: 20px;">🔊 उच्चारण सुनने के लिए चित्र पर क्लिक करें</div>
+            <div style="font-size: 14px; color: #ff9600; font-weight: bold; margin-bottom: 15px;">🔊 आवाज़ के लिए चित्र पर क्लिक करें</div>
             <div class="options-grid" id="options-grid"></div>
-            <div style="height: 120px;"></div>
         </div>
 
+        <!-- स्क्रीन 4: शिक्षक डैशबोर्ड -->
         <div class="teacher-panel" id="teacher-panel">
-            <h2>⚙️ SIPS शिक्षक डैशबोर्ड (Add New Words)</h2>
+            <h2>⚙️ SIPS शिक्षक डैशबोर्ड</h2>
             <div class="form-group">
-                <label>1. किस पाठ में नया शब्द जोड़ना है?</label>
+                <label>1. किस पाठ में शब्द जोड़ना है?</label>
                 <select id="target-lesson">
                     <option value="1">पाठ 1: अक्षरों की पहचान</option>
                     <option value="2">पाठ 2: फलों और जानवरों के नाम</option>
@@ -355,35 +349,37 @@
                     <option value="4">विकल्प 4</option>
                 </select>
             </div>
-            <button class="d-btn" onclick="addNewQuestion()" style="background-color: var(--sips-green); border-bottom-color: var(--sips-green-border);">💾 नया सवाल जोड़ें</button>
-            <button class="d-btn" onclick="closeTeacherPanel()" style="background-color: #78909c; border-bottom-color: #546e7a;">← वापस गेम पर जाएँ</button>
+            <button class="d-btn" onclick="addNewQuestion()">💾 नया सवाल जोड़ें</button>
+            <button class="d-btn" onclick="closeTeacherPanel()" style="background-color: #78909c; border-bottom-color: #546e7a;">← वापस जाएँ</button>
         </div>
 
+        <!-- स्क्रीन 5: रिजल्ट स्क्रीन -->
         <div class="screen" id="result-screen">
-            <div style="font-size: 85px; margin-bottom: 15px;">👑</div>
+            <div style="font-size: 70px; margin-bottom: 10px;">👑</div>
             <h1 style="color: var(--sips-orange)">अद्भुत प्रदर्शन!</h1>
-            <p id="result-text" style="font-size: 20px; font-weight: bold; margin-bottom: 30px; color: #444;"></p>
+            <p id="result-text" style="font-size: 18px; font-weight: bold; margin-bottom: 25px; color: #444;"></p>
             <button class="d-btn" onclick="backToLevels()">दूसरा पाठ चुनें ➔</button>
         </div>
 
     </div>
 
+    <!-- चेकिंग फूटर बार -->
     <div class="check-footer" id="check-footer" style="display: none;">
         <div class="footer-content">
             <div class="feedback-text" id="feedback-text">
-                <span id="feedback-emoji" style="font-size: 24px; margin-right: 10px;">🎉</span>
-                <span id="feedback-message">अद्भुत! सही जवाब है।</span>
+                <span id="feedback-emoji" style="font-size: 20px; margin-right: 5px;">🎉</span>
+                <span id="feedback-message">सही जवाब!</span>
             </div>
-            <button class="d-btn" id="action-btn" onclick="handleFooterAction()" style="width: auto; min-width: 160px; margin: 0;">चेक करें</button>
+            <button class="d-btn" id="action-btn" onclick="handleFooterAction()" style="width: auto; min-width: 140px; margin: 0; padding: 12px;">चेक करें</button>
         </div>
     </div>
 
 <script>
-    // पुराना जावास्क्रिप्ट (डेटाबेस और लॉजिक) जस का तस रहेगा जो पिछले कोड में था...
+    // महा-पाठ्यक्रम डेटाबेस
     const defaultLessons = {
         1: [
             { visual: "A", options: ["Apple", "Ball", "Cat", "Dog"], answer: "Apple", prompt: "A फॉर क्या होता है बच्चों?" },
-            { visual: "B", options: ["Egg", "Boy", "Apple", "Girl"], answer: "Boy", prompt: "दिए गए विकल्पों में से B से शुरू होने वाला शब्द चुनें" },
+            { visual: "B", options: ["Egg", "Boy", "Apple", "Girl"], answer: "Boy", prompt: "B से शुरू होने वाला शब्द चुनें" },
             { visual: "C", options: ["Dog", "Elephant", "Cat", "Banana"], answer: "Cat", prompt: "C फॉर क्या होता है?" },
             { visual: "D", options: ["Doll", "Apple", "Fish", "Grapes"], answer: "Doll", prompt: "D फॉर क्या होता है?" },
             { visual: "E", options: ["Cat", "Elephant", "Boy", "Hat"], answer: "Elephant", prompt: "E फॉर क्या होता है बच्चों?" }
@@ -394,8 +390,8 @@
             { visual: "🐕", options: ["Cat", "Dog", "Cow", "Goat"], answer: "Dog", prompt: "कुत्ते को अंग्रेजी में क्या कहते हैं?" }
         ],
         3: [
-            { visual: "🤝", options: ["Good Morning", "Hello", "Thank You", "Goodbye"], answer: "Hello", prompt: "जब हम किसी से मिलते हैं तो अंग्रेजी में सबसे पहले क्या बोलते हैं?" },
-            { visual: "🙏", options: ["Sorry", "Welcome", "Thank You", "Please"], answer: "Thank You", prompt: "जब कोई हमारी मदद करता है, तो हम उसे क्या बोलते हैं?" }
+            { visual: "🤝", options: ["Good Morning", "Hello", "Thank You", "Goodbye"], answer: "Hello", prompt: "जब हम किसी से मिलते हैं तो सबसे पहले क्या बोलते हैं?" },
+            { visual: "🙏", options: ["Sorry", "Welcome", "Thank You", "Please"], answer: "Thank You", prompt: "जब कोई हमारी मदद करता है, तो हम क्या बोलते हैं?" }
         ]
     };
 
@@ -423,7 +419,7 @@
     function speakClearText(text, langType) {
         window.speechSynthesis.cancel(); 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.82;  
+        utterance.rate = 0.85;  
         utterance.pitch = 1.15; 
 
         let bestVoice = null;
@@ -447,6 +443,7 @@
             document.getElementById(screenId).classList.add('active-screen');
         } else {
             document.getElementById('teacher-panel').style.display = 'block';
+            window.scrollTo(0,0);
         }
         
         if (screenId === 'quiz-screen') {
@@ -461,12 +458,12 @@
     function loginStudent() {
         const nameInput = document.getElementById('student-name').value.trim();
         if (!nameInput) {
-            alert("कृपया SIPS ऐप में अपना नाम लिखें!");
+            alert("कृपया SIPS वेब ऐप में अपना नाम लिखें!");
             return;
         }
         studentName = nameInput;
         document.getElementById('welcome-text').innerText = `नमस्ते, SIPS स्टार ${studentName}! 👋`;
-        speakClearText("", 'en');
+        speakClearText("", 'en'); // मोबाइल ब्राउज़र अनलॉक हिंट
         setTimeout(() => { speakClearText(`नमस्ते ${studentName}, चलो गेम खेलें!`, 'hi'); }, 100);
         showScreen('level-screen');
         renderLeaderboard();
@@ -504,7 +501,7 @@
 
         const currentQuestion = currentQuestionsList[currentQuestionIdx];
         document.getElementById('question-title').innerText = currentQuestion.prompt;
-        document.getElementById('question-visual').innerHTML = `${currentQuestion.visual} <span style="font-size:16px; display:block; color:#ff9600;">🔊</span>`;
+        document.getElementById('question-visual').innerHTML = `${currentQuestion.visual}`;
 
         const optionsGrid = document.getElementById('options-grid');
         optionsGrid.innerHTML = '';
@@ -567,7 +564,7 @@
             score += 10;
             footer.classList.add('correct-bg');
             fbEmoji.innerText = "🎉";
-            fbMsg.innerText = "अद्भुत! सही जवाब है।";
+            fbMsg.innerText = "सही जवाब है!";
             actionBtn.innerText = "आगे बढ़ें ➔";
             speakClearText("वाह! आपका जवाब बिल्कुल सही है।", "hi");
         } else {
@@ -575,11 +572,11 @@
             document.getElementById('lives-count').innerText = lives;
             footer.classList.add('wrong-bg');
             fbEmoji.innerText = "🛑";
-            fbMsg.innerText = `गलत जवाब! सही था: ${currentQuestion.answer}`;
+            fbMsg.innerText = `गलत! सही था: ${currentQuestion.answer}`;
             actionBtn.innerText = "समझ गए ➔";
             actionBtn.style.backgroundColor = "var(--sips-red)";
             actionBtn.style.borderBottomColor = "#b01e1e";
-            speakClearText("ओहो! यह गलत हो गया।", "hi");
+            speakClearText(`ओहो! यह गलत हो गया। सही जवाब है ${currentQuestion.answer}`, "hi");
         }
     }
 
@@ -632,7 +629,7 @@
             previousScreen = from;
             showScreen('teacher');
         } else if (password !== null) {
-            alert("गलत पासवर्ड! केवल शिक्षक ही बदलाव कर सकते हैं।");
+            alert("गलत पासवर्ड!");
         }
     }
 
